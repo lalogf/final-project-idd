@@ -11,11 +11,13 @@ document.addEventListener("DOMContentLoaded", function() {
   	if (videoOnPage.state() === "playing") {
   		videoOnPage.pause();
   		this.innerHTML = "Play Video";
-  		document.getElementById("body").style.background = "#fff"
+  		document.getElementById("body").style.background = "#fff";
+      socket.emit('ledON');
   	} else {
   		videoOnPage.play();
   		this.innerHTML = "Pause Video";
-  		document.getElementById("body").style.background = "#000"
+  		document.getElementById("body").style.background = "#000";
+      socket.emit('ledOFF');
   	}
   });
 });
@@ -29,7 +31,17 @@ _wq.push({ id: 'u8p9wq6mq8', onReady: function(video) {
 
 
 
-// send out LedOn message over socket
-function ledON() {
-  socket.emit('ledON');
-}
+// // send out LedOn message over socket
+// function ledON() {
+//   socket.emit('ledON');
+// }
+
+// // send out ledOFF message over socket
+// function ledOFF() {
+//   socket.emit('ledOFF');
+// }
+
+socket.on('server-msg', function(msg) {
+  msg = msg.toString();
+  console.log('msg:', msg);
+});
