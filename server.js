@@ -17,11 +17,16 @@ const SerialPort = require('serialport'); // serial library
 const Readline = SerialPort.parsers.Readline; 
 
 
+if (!process.argv[2]) {
+  console.error('Usage: node ' + process.argv[1] + ' SERIAL_PORT');
+  process.exit(1);
+}
+
 
 //---------------------- SERIAL COMMUNICATION (Arduino) ----------------------//
 // start the serial port connection and read on newlines
-const serial = new SerialPort('/dev/tty-usbserial1');
-//const serial = new SerialPort(process.argv[2], {});
+// const serial = new SerialPort('/dev/tty-usbserial1');
+const serial = new SerialPort(process.argv[2], {});
 const parser = new Readline({
   delimiter: '\r\n'
 });
@@ -33,6 +38,9 @@ parser.on('data', function(data) {
   io.emit('server-msg', data);
 });
 
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`);
+});
 
 
 
