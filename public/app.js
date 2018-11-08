@@ -1,10 +1,25 @@
+var videoOnPage;
+
 document.addEventListener("DOMContentLoaded", function() {
   // code...
   var titles = document.querySelectorAll('.card-title');
   document.getElementById("led-on").addEventListener("click", function(){
-  	titles.forEach(function(title){
-  		title.innerHTML = "Lalo Gonzalez"
-  	})
+  	if (videoOnPage.state() === "playing") {
+  		videoOnPage.pause();
+  		this.innerHTML = "Play Video";
+  		document.getElementById("body").style.background = "#fff"
+  	} else {
+  		videoOnPage.play();
+  		this.innerHTML = "Pause Video";
+  		document.getElementById("body").style.background = "#000"
+  	}
   });
-
 });
+
+
+window._wq = window._wq || [];
+_wq.push({ id: 'u8p9wq6mq8', onReady: function(video) {
+	console.log("I got a handle to the video!", video);
+	videoOnPage = video;
+}});
+
