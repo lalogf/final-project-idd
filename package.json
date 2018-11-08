@@ -1,0 +1,16 @@
+{
+  "name": "slides-clicker",
+  "version": "1.0.0",
+  "description": "using arduino, rasperry pi and nodejs to create a slides clicker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lalo Gonzalez",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.16.4"
+  }
+}
