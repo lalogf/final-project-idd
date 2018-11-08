@@ -17,6 +17,7 @@ const SerialPort = require('serialport'); // serial library
 const Readline = SerialPort.parsers.Readline; 
 
 
+
 if (!process.argv[2]) {
   console.error('Usage: node ' + process.argv[1] + ' SERIAL_PORT');
   process.exit(1);
@@ -31,10 +32,14 @@ const parser = new Readline({
   delimiter: '\r\n'
 });
 
+
+// var port = new SerialPort('/dev/tty-usbserial1', {
+//   baudRate: 57600
+// });
+
 // Read data that is available on the serial port and send it to the websocket
 serial.pipe(parser);
 parser.on('data', function(data) {
-  console.log('Data:', data);
   io.emit('server-msg', data);
 });
 
@@ -42,20 +47,16 @@ process.argv.forEach((val, index) => {
   console.log(`${index}: ${val}`);
 });
 
-
-
 io.on('connect', function(socket) {
   console.log('a user connected');
 
   // if you get the 'ledON' msg, send an 'H' to the Arduino
   socket.on('ledON', function() {
-    console.log('ledON');
     serial.write('H');
   });
 
   // if you get the 'ledOFF' msg, send an 'L' to the Arduino
   socket.on('ledOFF', function() {
-    console.log('ledOFF');
     serial.write('L');
   });
 
