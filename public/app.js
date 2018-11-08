@@ -1,5 +1,9 @@
 var videoOnPage;
 
+// WebSocket connection setup
+var socket = io();
+
+
 document.addEventListener("DOMContentLoaded", function() {
   // code...
   var titles = document.querySelectorAll('.card-title');
@@ -23,3 +27,9 @@ _wq.push({ id: 'u8p9wq6mq8', onReady: function(video) {
 	videoOnPage = video;
 }});
 
+
+
+// send out LedOn message over socket
+function ledON() {
+  socket.emit('ledON');
+}
